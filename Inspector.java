@@ -35,36 +35,7 @@ public class Inspector {
 
       if(c.isArray())
       {
-        //printing array information
-        Class arrayType = c.getComponentType();
-        System.out.printf(format, " Type name: " + arrayType.getName() + "[]");
-        System.out.printf(format, " Component Type: " + arrayType);
-        System.out.printf(format, " Length: " + Array.getLength(obj));
-        System.out.printf(format, " Entries->");
-
-        for(int i = 0; i < Array.getLength(obj); i++)
-        {
-          Object element = Array.get(obj, i);
-
-          if(element == null)
-          {
-            System.out.printf(format, "  Value: null");
-          }
-          else if(isPrimitive(element.getClass()))
-          {
-            System.out.printf(format, "  Value: " + element);
-          }
-          else
-          {
-            System.out.printf(format, "  Value (ref): " + element + "@" + element.hashCode());
-
-            if(recursive)
-            {
-              System.out.printf(format, "   ->Recursively Inspect ");
-              inspectClass(element.getClass(), element, recursive, depth + 1);
-            }
-          }
-        }
+        printBaseArrayInformation(c, obj, recursive, depth, format);
       }
       else
       {
@@ -323,6 +294,40 @@ public class Inspector {
         c.equals(Double.class) ||
         c.equals(Long.class) ||
         c.equals(Float.class);
+    }
+
+    public void printBaseArrayInformation(Class c, Object obj, boolean recursive, int depth, String format)
+    {
+      //printing array information
+      Class arrayType = c.getComponentType();
+      System.out.printf(format, " Type name: " + arrayType.getName() + "[]");
+      System.out.printf(format, " Component Type: " + arrayType);
+      System.out.printf(format, " Length: " + Array.getLength(obj));
+      System.out.printf(format, " Entries->");
+
+      for(int i = 0; i < Array.getLength(obj); i++)
+      {
+        Object element = Array.get(obj, i);
+
+        if(element == null)
+        {
+          System.out.printf(format, "  Value: null");
+        }
+        else if(isPrimitive(element.getClass()))
+        {
+          System.out.printf(format, "  Value: " + element);
+        }
+        else
+        {
+          System.out.printf(format, "  Value (ref): " + element + "@" + element.hashCode());
+
+          if(recursive)
+          {
+            System.out.printf(format, "   ->Recursively Inspect ");
+            inspectClass(element.getClass(), element, recursive, depth + 1);
+          }
+        }
+      }
     }
 
 }
