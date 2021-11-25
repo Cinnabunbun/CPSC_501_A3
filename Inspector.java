@@ -286,14 +286,16 @@ public class Inspector {
     // Method that determines whether a given class represents a primitive type.
     public boolean isPrimitive(Class<?> c)
     {
-      return c.equals(Boolean.class) || 
-        c.equals(Integer.class) ||
-        c.equals(Character.class) ||
-        c.equals(Byte.class) ||
-        c.equals(Short.class) ||
-        c.equals(Double.class) ||
-        c.equals(Long.class) ||
-        c.equals(Float.class);
+      boolean isBoolean = c.equals(Boolean.class);
+      boolean isInteger = c.equals(Integer.class);
+      boolean isCharacter = c.equals(Character.class);
+      boolean isByte = c.equals(Byte.class);
+      boolean isShort = c.equals(Short.class);
+      boolean isDouble = c.equals(Double.class);
+      boolean isLong = c.equals(Long.class);
+      boolean isFloat = c.equals(Float.class);
+
+      return isBoolean || isInteger || isCharacter || isByte || isShort || isDouble || isLong || isFloat;
     }
 
     public void printBaseArrayInformation(Class c, Object obj, boolean recursive, int depth, String format)
